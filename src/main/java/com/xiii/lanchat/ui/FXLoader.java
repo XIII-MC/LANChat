@@ -1,6 +1,7 @@
 package com.xiii.lanchat.ui;
 
 import com.xiii.lanchat.SuperMain;
+import com.xiii.lanchat.control.FXController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 public class FXLoader extends Application {
 
+    public static final String softwareVersion = "b0001/D";
     private boolean firstTime;
     private TrayIcon trayIcon;
 
@@ -76,7 +78,7 @@ public class FXLoader extends Application {
             popup.add(closeItem);
             /// ... add other items
             // construct a TrayIcon
-            trayIcon = new TrayIcon(image, "LAN Chat", popup);
+            trayIcon = new TrayIcon(image, "", popup);
             // set the TrayIcon properties
             trayIcon.addActionListener(showListener);
             // ...
@@ -90,23 +92,17 @@ public class FXLoader extends Application {
         }
     }
 
-    public void showProgramIsMinimizedMsg() {
-        if (firstTime) {
-            trayIcon.displayMessage("Some message.",
-                    "Some other message.",
-                    TrayIcon.MessageType.INFO);
-            firstTime = false;
-        }
-    }
-
     private void hide(final Stage stage) {
         Platform.runLater(() -> {
             if (SystemTray.isSupported()) {
                 stage.hide();
-                showProgramIsMinimizedMsg();
             } else {
                 System.exit(0);
             }
         });
+    }
+
+    public static String getSoftwareVersion() {
+        return softwareVersion;
     }
 }
