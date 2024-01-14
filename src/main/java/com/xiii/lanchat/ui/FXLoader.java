@@ -58,12 +58,7 @@ public class FXLoader extends Application {
 
             stage.setOnCloseRequest(t -> hide(stage));
             // create a action listener to listen for default action executed on the tray icon
-            final ActionListener closeListener = new ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    System.exit(0);
-                }
-            };
+            final ActionListener closeListener = e -> System.exit(0);
 
             ActionListener showListener = e -> Platform.runLater(stage::show);
             // create a popup menu

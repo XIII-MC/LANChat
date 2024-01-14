@@ -8,15 +8,14 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 
 // Taken from Dynamic.Network
-public class DCNPort {
+public class DynamicNetwork {
 
-    public static String getIPBySessionName(final String sessionName) throws ExecutionException, InterruptedException {
+    public static String getIPBySessionName(final String sessionName) {
 
         final ExecutorService executorService = Executors.newFixedThreadPool(256);
         final List<CompletableFuture<Void>> futures = new ArrayList<>();
@@ -36,7 +35,7 @@ public class DCNPort {
         final int sessionPort = getPortByName(sessionName);
         
         // CompletableFuture return thingy
-        AtomicReference<CompletableFuture> serverIp = new AtomicReference<>();
+        AtomicReference<String> serverIp = new AtomicReference<>();
 
         for (int i = 0; i < 255; i++) {
 
@@ -44,7 +43,7 @@ public class DCNPort {
 
             final CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
                 if (checkPort(finalIp, sessionPort)) {
-                    serverIp.set(CompletableFuture.supplyAsync(() -> finalIp, executorService));
+                    serverIp.set(finalIp);
                 }
             }, executorService);
             futures.add(future);
@@ -54,7 +53,7 @@ public class DCNPort {
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         executorService.shutdownNow();
 
-        return serverIp.get() == null ? null : serverIp.get().toString();
+        return serverIp.get() == null ? null : serverIp.get();
     }
 
     private static boolean checkPort(final String ipv4, final int port) {
@@ -70,7 +69,7 @@ public class DCNPort {
     public static int getPortByName(final String sessionName) {
 
         int port = 0;
-        for (int i = 0; i<sessionName.length(); i++) {
+        for (int i = 0; i < sessionName.length(); i++) {
             port += sessionName.charAt(i);
         }
 

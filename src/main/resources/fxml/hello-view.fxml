@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xiii.lanchat.control.FXController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xiii.lanchat.control.FXController">
    <children>
       <ToolBar prefHeight="38.0" prefWidth="800.0">
         <items>
@@ -12,7 +12,8 @@
             <PasswordField fx:id="sessionPassword" />
             <Button mnemonicParsing="false" onAction="#joinSession" text="Rejoindre" />
             <Button mnemonicParsing="false" onAction="#startSession" text="Créer" />
-            <Label fx:id="connectionStatus" alignment="CENTER" text="0000/0" translateX="150.0" />
+            <ChoiceBox prefWidth="150.0" />
+            <Label fx:id="connectionStatus" alignment="CENTER" text="0000/0" />
         </items>
       </ToolBar>
       <TabPane layoutY="38.0" prefHeight="38.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
