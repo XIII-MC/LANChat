@@ -55,13 +55,11 @@ public class FXController implements Initializable {
 
     @FXML
     protected void startSession() {
-        //new Thread(() -> {
-            String ip = null;
-            try (final DatagramSocket socket = new DatagramSocket()) {
-                socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
-                ip = socket.getLocalAddress().getHostAddress();
-            } catch (final IOException ignored) {}
-            SocketServer.init(ip, DynamicNetwork.getPortByName(sessionName.getText()));
-        //}).start();
+        String ip = null;
+        try (final DatagramSocket socket = new DatagramSocket()) {
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            ip = socket.getLocalAddress().getHostAddress();
+        } catch (final IOException ignored) {}
+        SocketServer.init(ip, DynamicNetwork.getPortByName(sessionName.getText()));
     }
 }
